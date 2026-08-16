@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 export default function Register() {
   return<>
 
+
+
 <div className="container d-flex align-items-center justify-content-center mb-3 mt-3">
       <div className="row justify-content-center w-100">
         <div className="col-12 col-md-6 col-lg-4">
