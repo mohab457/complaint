@@ -18,7 +18,7 @@ const [isLoading ,setIsloading] = useState(true)
 async function getComplaints(){
   setIsloading(true)
   const {data , error} = await supabase
-  .from('complain')
+  .from('complaint')
   .select('*')
   if(data){
     setComplaint(data)
@@ -42,6 +42,7 @@ console.log(data);
       <th scope="col">User Name</th>
       <th scope="col">Topic</th>
       <th scope="col">Status</th>
+      <th>Phone</th>
     </tr>
   </thead>
 <tbody className="table-group-divider">
@@ -51,6 +52,7 @@ console.log(data);
       <td>{item.userName}</td>
       <td>{item.topic}</td>
       <td>{item.status || "Pending"}</td>
+      <td>{item.phone}</td>
     </tr>
   ))}
 </tbody>
