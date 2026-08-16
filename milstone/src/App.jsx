@@ -8,6 +8,8 @@ import Login from './components/Login/Login'
 import Register from './components/Register/Register'
 import Layout from './components/Layout/Layout'
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
+import Complaint from './components/Complaint/Complaint';
+import MyComplaints from './components/MyComplaints/MyComplaints';
 
 
 
@@ -16,6 +18,8 @@ let routers = createBrowserRouter([
     {path:'/' , element: <Home/>},
     {path:'login' , element: <Login/>},
     {path:'register' , element:<Register/>},
+    {path:'Complaint' , element:<Complaint/>},
+    {path:'MyComplaints' , element:<MyComplaints/>},
     {path:'*' , element: <NotFound/>}
   ]}
 ])

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 export default function Register() {
   return<>
 
-<div className="container d-flex align-items-center justify-content-center mb-3 mt-5">
+<div className="container d-flex align-items-center justify-content-center mb-3 mt-3">
       <div className="row justify-content-center w-100">
         <div className="col-12 col-md-6 col-lg-4">
           <div className="card shadow-sm border-0 rounded-3 px-3 bg-light">
@@ -26,15 +26,28 @@ export default function Register() {
                   required
                 />
               </div>
+                            <div className="mb-3">
+                <label className="form-label">
+                  User Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="UserName"
+                  name="UserName"
+                  placeholder="e.g Sara_2026"
+                  required
+                />
+              </div>
                 <div className="mb-3">
-                <label htmlFor="email" className="form-label">
+                <label  className="form-label">
                   Phone Number
                 </label>
                 <input
                   type="number"
                   className="form-control"
-                  id="email"
-                  name="email"
+                  id="PhoneNumber"
+                  name="PhoneNumber"
                   placeholder="name@example.com"
                   required
                 />
@@ -46,8 +59,8 @@ export default function Register() {
                 <input
                   type="password"
                   className="form-control"
-                  id="phone"
-                  name="phone"
+                  id="password"
+                  name="password"
                   placeholder="Password"
                   required
                 />
@@ -63,12 +76,5 @@ export default function Register() {
         </div>
       </div>
     </div>
-  
-
-
-
-
-
-    
   </>
 }

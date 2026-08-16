@@ -15,9 +15,7 @@ export default function Login() {
         <div className="col-12 col-md-6 col-lg-4">
           <div className="card shadow-sm border-0 rounded-3 p-4 bg-light">
             <h2 className="text-center mb-4 fw-bold text-dark">Login</h2>
-
             <form>
-
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
                   Email Address
@@ -27,12 +25,10 @@ export default function Login() {
                   className="form-control"
                   id="email"
                   name="email"
-
                   placeholder="name@example.com"
                   required
                 />
               </div>
-
               <div className="mb-4">
                 <label htmlFor="phone" className="form-label">
                   password
@@ -46,7 +42,6 @@ export default function Login() {
                   required
                 />
               </div>
-
               <button type="submit" className="btn btn-primary w-100 py-2">
                 Login
               </button>
