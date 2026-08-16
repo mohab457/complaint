@@ -11,10 +11,8 @@ export default function Register() {
       <div className="row justify-content-center w-100">
         <div className="col-12 col-md-6 col-lg-4">
           <div className="card shadow-sm border-0 rounded-3 px-3 bg-light">
-            <h2 className="text-center mb-4 fw-bold text-dark">Create Account</h2>
-
+            <h2 className="text-center mb-4 mt-3 fw-bold text-dark">Create Account</h2>
             <form>
-
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
                   Email Address
@@ -24,12 +22,10 @@ export default function Register() {
                   className="form-control"
                   id="email"
                   name="email"
-
                   placeholder="name@example.com"
                   required
                 />
               </div>
-
                 <div className="mb-3">
                 <label htmlFor="email" className="form-label">
                   Phone Number
@@ -39,12 +35,10 @@ export default function Register() {
                   className="form-control"
                   id="email"
                   name="email"
-
                   placeholder="name@example.com"
                   required
                 />
               </div>
-
               <div className="mb-3">
                 <label htmlFor="phone" className="form-label">
                   password
@@ -58,12 +52,11 @@ export default function Register() {
                   required
                 />
               </div>
-
               <button type="submit" className="btn btn-primary w-100 py-2">
                 Create Account
               </button>
-              <div className='w-100 text-center mt-2'>
-                    <Link className='text-decoration-none text-dark' to={'Login'}>Already have Account? Login Now</Link>
+              <div className='w-100 text-center mt-2 mb-3'>
+                    <Link className='text-decoration-none text-dark' to={'/login'}>Already have Account? Login Now</Link>
               </div>
             </form>
           </div>
