@@ -1,55 +1,76 @@
 import React from 'react'
 import Style from './Register.module.css'
+import { Link } from 'react-router-dom'
 
 
 
 export default function Register() {
   return<>
 
-    <h1 className='text-center'>Register Component</h1>
+<div className="container d-flex align-items-center justify-content-center mb-3 mt-5">
+      <div className="row justify-content-center w-100">
+        <div className="col-12 col-md-6 col-lg-4">
+          <div className="card shadow-sm border-0 rounded-3 px-3 bg-light">
+            <h2 className="text-center mb-4 fw-bold text-dark">Create Account</h2>
 
-<div className='p-5'>
+            <form>
 
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  name="email"
 
-<div className="input-group mb-3">
-  <span className="input-group-text" id="basic-addon1">@</span>
-  <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"/>
-</div>
+                  placeholder="name@example.com"
+                  required
+                />
+              </div>
 
-<div className="input-group mb-3">
-  <input type="text" className="form-control" placeholder="Recipient’s username" aria-label="Recipient’s username" aria-describedby="basic-addon2"/>
-  <span className="input-group-text" id="basic-addon2">@example.com</span>
-</div>
+                <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  Phone Number
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="email"
+                  name="email"
 
-<div className="mb-3">
-  <label for="basic-url" className="form-label">Your vanity URL</label>
-  <div className="input-group">
-    <span className="input-group-text" id="basic-addon3">https://example.com/users/</span>
-    <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4"/>
-  </div>
-  <div className="form-text" id="basic-addon4">Example help text goes outside the input group.</div>
-</div>
+                  placeholder="name@example.com"
+                  required
+                />
+              </div>
 
-<div className="input-group mb-3">
-  <span className="input-group-text">$</span>
-  <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)"/>
-  <span className="input-group-text">.00</span>
-</div>
+              <div className="mb-3">
+                <label htmlFor="phone" className="form-label">
+                  password
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="phone"
+                  name="phone"
+                  placeholder="Password"
+                  required
+                />
+              </div>
 
-<div className="input-group mb-3">
-  <input type="text" className="form-control" placeholder="Username" aria-label="Username"/>
-  <span className="input-group-text">@</span>
-  <input type="text" className="form-control" placeholder="Server" aria-label="Server"/>
-</div>
-
-<div className="input-group">
-  <span className="input-group-text">With textarea</span>
-  <textarea className="form-control" aria-label="With textarea"></textarea>
-</div>
-
-
-</div>
-
+              <button type="submit" className="btn btn-primary w-100 py-2">
+                Create Account
+              </button>
+              <div className='w-100 text-center mt-2'>
+                    <Link className='text-decoration-none text-dark' to={'Login'}>Already have Account? Login Now</Link>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
 
 
 
