@@ -10,6 +10,7 @@ import Layout from './components/Layout/Layout'
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import Complaint from './components/Complaint/Complaint';
 import MyComplaints from './components/MyComplaints/MyComplaints';
+import {QueryClient , QueryClientProvider} from '@tanstack/react-query'
 
 
 
@@ -23,10 +24,12 @@ let routers = createBrowserRouter([
     {path:'*' , element: <NotFound/>}
   ]}
 ])
-
+let queryClient = new QueryClient()
 function App() {
   return<>
+        <QueryClientProvider client={queryClient}>
         <RouterProvider router={routers}></RouterProvider>
+        </QueryClientProvider>
   </>
 
 }
