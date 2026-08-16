@@ -10,18 +10,7 @@ export default function MyComplaints() {
   const [complaints, setComplaint] = useState([]);
   const [isLoading, setIsloading] = useState(true);
 
-  function getCurrentDate(){
-  const now = new Date()
 
-  return now.toLocaleString('en-US' ,{
-    month: "short",
-    day:'numeric',
-    hour:'numeric',
-    minute:'numeric',
-    hour12: true
-  })
-  }
-  console.log(getCurrentDate());
   
 
   async function getComplaints() {
@@ -60,7 +49,7 @@ export default function MyComplaints() {
                 <td>{item.topic}</td>
                 <td>{item.status || "Pending"}</td>
                 <td>{item.phone}</td>
-                <td>{getCurrentDate()}</td>
+                <td>{item.date}</td>
               </tr>
             ))}
           </tbody>

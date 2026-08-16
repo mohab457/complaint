@@ -4,15 +4,29 @@ import { supabase } from "../../../utils/supabase";
 import { ThreeDots } from "react-loader-spinner";
 
 export default function Complaint() {
+    function getCurrentDate(){
+    const now = new Date()
+  
+    return now.toLocaleString('en-US' ,{
+      month: "short",
+      day:'numeric',
+      hour:'numeric',
+      minute:'numeric',
+      hour12: true
+    })
+    }
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [topic, setTopic] = useState("");
+  const [date , setdate] =useState(getCurrentDate())
   const [complaintText, setComplaintText] = useState("");
   const [isloading, setIsLoading] = useState(false);
   function handelSubmit(e) {
     e.preventDefault();
   }
+
+    
   function clearform(){
     setUserName('')
     setEmail('')
@@ -29,6 +43,7 @@ export default function Complaint() {
         email: email,
         topic: topic,
         complaintText: complaintText,
+        date: date
       },
     ]);
     setIsLoading(false);
