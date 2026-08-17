@@ -6,7 +6,6 @@ import { ThreeDots } from "react-loader-spinner";
 export default function Complaint() {
     function getCurrentDate(){
     const now = new Date()
-  
     return now.toLocaleString('en-US' ,{
       month: "short",
       day:'numeric',
@@ -22,10 +21,6 @@ export default function Complaint() {
   const [date , setdate] =useState(getCurrentDate())
   const [complaintText, setComplaintText] = useState("");
   const [isloading, setIsLoading] = useState(false);
-  function handelSubmit(e) {
-    e.preventDefault();
-  }
-
     
   function clearform(){
     setUserName('')
@@ -36,7 +31,8 @@ export default function Complaint() {
   }
   async function sendComplaint() {
     setIsLoading(true);
-    const { data, error } = await supabase.from("complaint").insert([
+    const { data, error } = await supabase.from("complaint")
+    .insert([
       {
         userName: userName,
         phone: phone,
