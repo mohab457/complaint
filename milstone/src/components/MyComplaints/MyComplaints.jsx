@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 export default function MyComplaints() {
   const [complaints, setComplaint] = useState([]);
   const [isLoading, setIsloading] = useState(true);
+
   async function getComplaints() {
     setIsloading(true);
     const { data, error } = await supabase
@@ -25,12 +26,11 @@ export default function MyComplaints() {
     queryKey: ["complaints"],
     queryFn: getComplaints,
   });
-
   return (
     <>
       <div className="bg-dark border mt-3 mb-3 px-5 rounded-5 w-75 mx-auto">
           <div className="d-flex justify-content-between ms-auto w-100 mx-auto p-5 ">
-            <Link to={'/complaint'} className="btn btn-primary"><i className="fa-solid fa-plus"></i> New Complaint</Link>
+            <Link to={'/complaint'} className="btn btn-primary"><i className="fa-solid fa-plus"></i>+ New Complaint</Link>
             <form className="d-flex" role="search">
               <input 
               className="form-control me-2" 
