@@ -11,6 +11,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import Complaint from './components/Complaint/Complaint';
 import MyComplaints from './components/MyComplaints/MyComplaints';
 import {QueryClient , QueryClientProvider} from '@tanstack/react-query'
+import Complaintdetailes from './components/Complaintdetailes/Complaintdetailes';
 
 
 
@@ -20,6 +21,7 @@ let routers = createBrowserRouter([
     {path:'login' , element: <Login/>},
     {path:'register' , element:<Register/>},
     {path:'Complaint' , element:<Complaint/>},
+    {path:'Complaintdetailes' , element:<Complaintdetailes/>},
     {path:'MyComplaints' , element:<MyComplaints/>},
     {path:'*' , element: <NotFound/>}
   ]}

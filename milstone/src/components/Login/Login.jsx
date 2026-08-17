@@ -10,11 +10,11 @@ export default function Login() {
 
 
 
-<div className="container d-flex align-items-center justify-content-center mb-3 mt-5">
+<div className="container vh-100 d-flex  justify-content-center mt-5 mb-3">
       <div className="row justify-content-center w-100">
         <div className="col-12 col-md-6 col-lg-4">
           <div className="card shadow-sm border-0 rounded-3 p-4 bg-light">
-            <h2 className="text-center mb-4 fw-bold text-dark">Login</h2>
+            <h2 className="text-center fw-bold text-dark">Login</h2>
             <form>
               <div className="mb-3">
                 <label htmlFor="email" className="form-label">
