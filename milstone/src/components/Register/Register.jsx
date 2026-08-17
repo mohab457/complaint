@@ -2,27 +2,45 @@ import React, { useState } from 'react'
 import Style from './Register.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../../../utils/supabase'
+import {useFormik} from 'formik'
+import * as Yup from 'yup'
 
 
 
 export default function Register() {
 
-const [email , setEmail] = useState('')
-const [userName , setUserName] = useState('')
-const [phone , setPhone] = useState('')
-const [password  ,setPassword] = useState('')
+let phoneRegex = /^01[0125][0-9]{8}$/;
+let passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+let emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+const validateSchema = Yup.object({
+  email: Yup.string().matches(emailRegex ,'Invalid email address').required('Email is required'),
+  userName: Yup.string().min(3 , 'Username must be at least 3 characters').required('Username is required'),
+  phone: Yup.string().matches(phoneRegex , 'Must be a valid phone number').required('Phone Number is Required'),
+  password: Yup.string().matches(passRegex , 'password must contain at least one upercase letter and one number and one special character like "$ # @ !"  ')
+})
+
+const formik = useFormik({
+  initialValues:{
+    email:'',
+    userName:'',
+    phone:'',
+    password:'',
+  },
+  validationSchema:validateSchema,
+  onSubmit:handleRegister
+})
+
 const [isLoading , setIsloading] = useState(false)
 const [errorMsg , setErrorMsg] = useState('')
 const navigate = useNavigate()
 
-
-async function handleRegister(e){
-  e.preventDefault()
+async function handleRegister(values){
   setIsloading(true)
   setErrorMsg('')
   const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: email,
-      password: password,
+      email: values.email,
+      password: values.password,
     });
     if(authError){
       setErrorMsg(authError.message)
@@ -33,8 +51,8 @@ async function handleRegister(e){
       const {error: profileError} = await supabase.from('register').insert([
         {
           id: authData.user.id,
-          userName: userName,
-          phone: phone,
+          userName:values.userName,
+          phone:values.phone,
         }
       ])
       if(profileError){
@@ -52,7 +70,7 @@ async function handleRegister(e){
           <div className="card shadow-sm border-0 rounded-3 px-3 bg-light">
             <h2 className="text-center mb-4 mt-3 fw-bold text-dark">Create Account</h2>
             {errorMsg && (<div className='alert alert-danger py-2'>{errorMsg}</div>)}
-            <form onSubmit={handleRegister}>
+            <form onSubmit={formik.handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">
                   Email Address
@@ -60,13 +78,16 @@ async function handleRegister(e){
                 <input
                   type="email"
                   className="form-control"
-                  value={email}
-                  onChange={ (e)=>setEmail(e.target.value) }
-                  id="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   name="email"
+                  value={formik.values.email}
+                  id="email"
                   placeholder="name@example.com"
-                  required
                 />
+                {formik.touched.email && formik.errors.email && (
+                  <div className="alert alert-danger py-1 mt-1">{formik.errors.email}</div>
+                )}
               </div>
               <div className="mb-3">
                 <label className="form-label">
@@ -76,27 +97,33 @@ async function handleRegister(e){
                   type="text"
                   className="form-control"
                   id="UserName"
-                  value={userName}
-                  onChange={ (e)=>setUserName(e.target.value) }
-                  name="UserName"
+                  onBlur={formik.handleBlur}
+                  name="userName"
+                  onChange={formik.handleChange}
+                  value={formik.values.userName}
                   placeholder="e.g Sara_2026"
-                  required
                 />
+                  {formik.touched.userName && formik.errors.userName && (
+                  <div className="alert alert-danger py-1 mt-1">{formik.errors.userName}</div>
+                )}
               </div>
                 <div className="mb-3">
                 <label  className="form-label">
                   Phone Number
                 </label>
                 <input
-                  type="number"
+                  type="tel"
                   className="form-control"
                   id="PhoneNumber"
-                  value={phone}
-                  onChange={ (e)=>setPhone(e.target.value) }
-                  name="PhoneNumber"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.phone}
+                  name="phone"
                   placeholder="name@example.com"
-                  required
                 />
+                {formik.touched.phone && formik.errors.phone && (
+                  <div className="alert alert-danger py-1 mt-1">{formik.errors.phone}</div>
+                )}
               </div>
               <div className="mb-3">
                 <label className="form-label">
@@ -106,14 +133,17 @@ async function handleRegister(e){
                   type="password"
                   className="form-control"
                   id="password"
-                  value={password}
-                  onChange={ (e)=>setPassword(e.target.value) }
+                  value={formik.values.password}
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
                   name="password"
                   placeholder="Password"
-                  required
                 />
+                {formik.touched.password && formik.errors.password && (
+                  <div className="alert alert-danger py-1 mt-1">{formik.errors.password}</div>
+                )}
               </div>
-              <button type="submit" disabled={isLoading} className="btn btn-primary w-100 py-2">
+              <button type="submit" disabled={isLoading || !formik.isValid || !formik.dirty} className="btn btn-primary w-100 py-2">
                 {isLoading? "Creating Account...": 'Register'}
               </button>
               <div className='w-100 text-center mt-2 mb-3'>
