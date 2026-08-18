@@ -48,96 +48,115 @@ export default function Complaint() {
   }
   return (
     <>
-      <div className="px-5 mb-5 bg-light w-75 mx-auto rounded-5 mt-4 d-flex flex-wrap justify-content-between py-5">
-        <h2 className="text-center w-100 mb-5">
-          -Compelete This From To Write Your Complaint-
+<div className="container mt-4 mb-5">
+      <div className="card bg-light p-4 p-md-5 rounded-4 shadow-sm">
+        <h2 className="text-center mb-4 fw-bold text-dark">
+          - Complete This Form To Write Your Complaint -
         </h2>
-        <div className="input-group w-25 flex-nowrap">
-          <span className="input-group-text" id="addon-wrapping">
-            @
-          </span>
-          <input
-            type="text"
-            className="form-control"
-            onChange={(e) => setUserName(e.target.value)}
-            placeholder="Username"
-            value={userName}
-            aria-label="Username"
-            aria-describedby="addon-wrapping"
-          />
-        </div>
 
-        <div className="input-group w-25 flex-nowrap">
-          <span className="input-group-text" id="addon-wrapping">
-            @
-          </span>
-          <input
-            type="text"
-            className="form-control"
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail"
-            aria-label="email"
-            value={email}
-            aria-describedby="addon-wrapping"
-          />
-        </div>
+        <form onSubmit={sendComplaint}>
+          <div className="row g-3">
+            <div className="col-12 col-md-4">
+              <label className="form-label fw-semibold">Username</label>
+              <div className="input-group">
+                <span className="input-group-text">@</span>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Username"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
 
-        <div className="input-group w-25 flex-nowrap">
-          <span className="input-group-text" id="addon-wrapping">
-            +20
-          </span>
-          <input
-            type="text"
-            className="form-control"
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Phone"
-            aria-label="Phone"
-            value={phone}
-            aria-describedby="addon-wrapping"
-          />
-        </div>
-        <div className="input-group mb-3 mt-3">
-          <label className="input-group-text">Topic:</label>
+            <div className="col-12 col-md-4">
+              <label className="form-label fw-semibold">Email</label>
+              <div className="input-group">
+                <span className="input-group-text">@</span>
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder="name@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
 
-          <select
-            className="form-select"
-            id="inputGroupSelect01"
-            value={topic}
-            onChange={(e) => setTopic(e.target.value)}
-          >
-            <option value="Wrong Item">Wrong Item</option>
-            <option value="Lost Item">Lost Item</option>
-            <option value="Broken Item">Broken Item</option>
-            <option value="Dlivary Issue">Dlivary Issue</option>
-            <option value="Refund Issue">Refund Issue</option>
-            <option value="Payment Issue">Payment Issue</option>
-            <option value="Account Lost">Account Lost</option>
-          </select>
-        </div>
-        <div className="input-group">
-          <span className="input-group-text">Write your Complaint</span>
-          <textarea
-            className="form-control"
-            aria-label="textarea"
-            value={complaintText}
-            onChange={(e) => setComplaintText(e.target.value)}
-            required
-          ></textarea>
-        </div>
-    <div className="w-100 d-flex justify-content-between mt-5">
-        <button
-          onClick={sendComplaint}
-          disabled={isloading}
-          type="submit"
-          className="btn btn-primary w-25 "
-        >
-          {isloading ? "Loading" : "Submit"}
-        </button>
-        <div className="w-25">
-        <Link to={'/MyComplaints'} className='btn btn-success w-100'>Reports</Link>
-        </div>
-    </div>
+            <div className="col-12 col-md-4">
+              <label className="form-label fw-semibold">Phone</label>
+              <div className="input-group">
+                <span className="input-group-text">+20</span>
+                <input
+                  type="tel"
+                  className="form-control"
+                  placeholder="01xxxxxxxxx"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="col-12">
+              <label className="form-label fw-semibold">Topic</label>
+              <div className="input-group">
+                <label className="input-group-text">Topic:</label>
+                <select
+                  className="form-select"
+                  value={topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                >
+                  <option value="Wrong Item">Wrong Item</option>
+                  <option value="Lost Item">Lost Item</option>
+                  <option value="Broken Item">Broken Item</option>
+                  <option value="Delivery Issue">Delivery Issue</option>
+                  <option value="Refund Issue">Refund Issue</option>
+                  <option value="Payment Issue">Payment Issue</option>
+                  <option value="Account Lost">Account Lost</option>
+                </select>
+              </div>
+            </div>
+
+            {/* نص الشكوى ✍️ */}
+            <div className="col-12">
+              <label className="form-label fw-semibold">Write your Complaint</label>
+              <textarea
+                className="form-control"
+                rows="4"
+                placeholder="Describe your issue in detail..."
+                value={complaintText}
+                onChange={(e) => setComplaintText(e.target.value)}
+                required
+              ></textarea>
+            </div>
+
+            {/* الأزرار في الأسفل 🔘 */}
+            <div className="col-12 mt-4">
+              <div className="row g-2">
+                <div className="col-12 col-md-6">
+                  <button
+                    disabled={isloading}
+                    type="submit"
+                    className="btn btn-primary w-100 py-2"
+                  >
+                    {isloading ? 'Loading...' : 'Submit'}
+                  </button>
+                </div>
+                <div className="col-12 col-md-6">
+                  <Link to={'/MyComplaints'} className="btn btn-success w-100 py-2">
+                    Reports
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
+    </div>
     </>
   );
 }

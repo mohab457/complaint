@@ -12,6 +12,8 @@ import Complaint from './components/Complaint/Complaint';
 import MyComplaints from './components/MyComplaints/MyComplaints';
 import {QueryClient , QueryClientProvider} from '@tanstack/react-query'
 import Complaintdetailes from './components/Complaintdetailes/Complaintdetailes';
+import ProtectedRoute from './components/protetedRoute/protetedRoute';
+
 
 
 
@@ -20,9 +22,10 @@ let routers = createBrowserRouter([
     {path:'/' , element: <Login/>},
     {path:'login' , element: <Login/>},
     {path:'register' , element:<Register/>},
-    {path:'Complaint' , element:<Complaint/>},
-    {path:'Complaintdetailes' , element:<Complaintdetailes/>},
-    {path:'MyComplaints' , element:<MyComplaints/>},
+    {path:'Complaint' , element:<ProtectedRoute><Complaint/></ProtectedRoute> },
+    {path:'home' , element:<ProtectedRoute><Home/></ProtectedRoute> },
+    {path:'Complaintdetailes' , element:<ProtectedRoute><Complaintdetailes/></ProtectedRoute>},
+    {path:'MyComplaints' , element:<ProtectedRoute><MyComplaints/></ProtectedRoute>},
     {path:'*' , element: <NotFound/>}
   ]}
 ])
@@ -33,7 +36,6 @@ function App() {
         <RouterProvider router={routers}></RouterProvider>
         </QueryClientProvider>
   </>
-
 }
 
 export default App;
