@@ -9,6 +9,17 @@ import { useFormik } from 'formik';
 
 
 export default function Login() {
+  useEffect(() => {
+    async function checkSession() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        navigate('/MyComplaints', { replace: true });
+      } else {
+        setIsCheckingAuth(false);
+      }
+    }
+    checkSession();
+  }, [navigate]);
 
 let passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 let emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
