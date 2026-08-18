@@ -121,7 +121,6 @@ export default function Complaint() {
               </div>
             </div>
 
-            {/* نص الشكوى ✍️ */}
             <div className="col-12">
               <label className="form-label fw-semibold">Write your Complaint</label>
               <textarea
@@ -134,7 +133,6 @@ export default function Complaint() {
               ></textarea>
             </div>
 
-            {/* الأزرار في الأسفل 🔘 */}
             <div className="col-12 mt-4">
               <div className="row g-2">
                 <div className="col-12 col-md-6">
