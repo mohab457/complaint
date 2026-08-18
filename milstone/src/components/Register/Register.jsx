@@ -60,8 +60,9 @@ async function handleRegister(values){
       }
     }
     setIsloading(false)
+    setIsSuccess(true)
+
 }
-setIsSuccess(true)
   return<>
 <div className="container d-flex align-items-center justify-content-center mb-3 mt-3">
       <div className="row justify-content-center w-100">
