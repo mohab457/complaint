@@ -58,7 +58,7 @@ async function handleRegister(values){
       if(profileError){
         setErrorMsg(profileError.message)
       }else{
-        navigate('/MyComplaints')
+        navigate('/login')
       }
     }
     setIsloading(false)
