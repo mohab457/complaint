@@ -9,8 +9,6 @@ import { useFormik } from 'formik';
 
 export default function Login() {
 const navigate = useNavigate();
-const [isLoading, setIsLoading] = useState(false);
-const [errorMsg, setErrorMsg] = useState('');
   useEffect(() => {
     async function checkSession() {
       const { data: { session } } = await supabase.auth.getSession();
@@ -24,7 +22,8 @@ const [errorMsg, setErrorMsg] = useState('');
   }, [navigate]);
 let passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 let emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-
+const [isLoading, setIsLoading] = useState(false);
+const [errorMsg, setErrorMsg] = useState('');
 
 const validateSchema = Yup.object({
   email: Yup.string().matches(emailRegex ,'Invalid email address').required('Email is required'),
