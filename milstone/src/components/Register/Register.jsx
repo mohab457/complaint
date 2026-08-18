@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Style from './Register.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../../../utils/supabase'
@@ -7,10 +7,10 @@ import * as Yup from 'yup'
 
 export default function Register() {
 let phoneRegex = /^01[0125][0-9]{8}$/;
-let passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+let passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d@$!%*?&]{8,}$/;
 let emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-const [isSuccess , setIsSuccess] = useState(false)
 
+const [isSuccess , setIsSuccess] = useState(false)
 const validateSchema = Yup.object({
   email: Yup.string().matches(emailRegex ,'Invalid email address').required('Email is required'),
   userName: Yup.string().min(3 , 'Username must be at least 3 characters').required('Username is required'),
@@ -30,6 +30,24 @@ const formik = useFormik({
 const [isLoading , setIsloading] = useState(false)
 const [errorMsg , setErrorMsg] = useState('')
 const navigate = useNavigate()
+
+useEffect( ()=>{
+  let intervalId;
+
+  if(isSuccess){
+    intervalId = setInterval( async ()=> {
+      const { data: { user } } = await supabase.auth.getUser();
+      if(user && user.email_confirmed_at){
+        clearInterval(intervalId)
+        navigate('/MyComplaints')
+      }
+    }, 1000 )
+  }
+  return ()=>{
+    if(intervalId) clearInterval(intervalId)
+  }
+}, [isSuccess] )
+
 async function handleRegister(values){
   setIsloading(true)
   setErrorMsg('')
@@ -56,12 +74,11 @@ async function handleRegister(values){
       if(profileError){
         setErrorMsg(profileError.message)
       }else{
+        setIsSuccess(true)
         navigate('/login')
       }
     }
     setIsloading(false)
-    setErrorMsg('')
-    setIsSuccess(false)
 }
   return<>
 <div className="container d-flex align-items-center justify-content-center mb-3 mt-3">
@@ -70,11 +87,6 @@ async function handleRegister(values){
           <div className="card shadow-sm border-0 rounded-3 px-3 bg-light">
             <h2 className="text-center mb-4 mt-3 fw-bold text-dark">Create Account</h2>
             {errorMsg && (<div className='alert alert-danger py-2'>{errorMsg}</div>)}
-            {isSuccess && (
-              <div className="alert alert-success py-2 text-center">
-                Your Email has been created successfly, pleas check your mialbox to confirm email
-              </div>
-            )}
             <form onSubmit={formik.handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">
