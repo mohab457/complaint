@@ -98,7 +98,7 @@ return<>
                 {isLoading?'Loading':'Login'}
               </button>
               <div className='w-100 text-center mt-2'>
-                    <Link className='text-decoration-none text-dark' to={'/Register'}>Dont have Account? Login Now</Link>
+                    <Link className='text-decoration-none text-dark' to={'/Register'}>Dont have Account? Register Now</Link>
               </div>
             </form>
           </div>

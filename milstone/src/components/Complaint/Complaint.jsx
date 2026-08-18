@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Style from "./Complaint.module.css";
 import { supabase } from "../../../utils/supabase";
 import { ThreeDots } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
 export default function Complaint() {
     function getCurrentDate(){
@@ -123,15 +124,19 @@ export default function Complaint() {
             required
           ></textarea>
         </div>
-
+    <div className="w-100 d-flex justify-content-between mt-5">
         <button
           onClick={sendComplaint}
           disabled={isloading}
           type="submit"
-          className="btn btn-primary w-25 mt-3 mx-auto"
+          className="btn btn-primary w-25 "
         >
           {isloading ? "Loading" : "Submit"}
         </button>
+        <div className="w-25">
+        <Link to={'/MyComplaints'} className='btn btn-success w-100'>Reports</Link>
+        </div>
+    </div>
       </div>
     </>
   );

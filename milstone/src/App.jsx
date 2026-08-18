@@ -17,7 +17,7 @@ import Complaintdetailes from './components/Complaintdetailes/Complaintdetailes'
 
 let routers = createBrowserRouter([
   {path:'/' ,element: <Layout/> ,children:[
-    {path:'/' , element: <Home/>},
+    {path:'/' , element: <Login/>},
     {path:'login' , element: <Login/>},
     {path:'register' , element:<Register/>},
     {path:'Complaint' , element:<Complaint/>},
