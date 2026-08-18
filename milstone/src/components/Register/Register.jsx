@@ -9,6 +9,7 @@ export default function Register() {
 let phoneRegex = /^01[0125][0-9]{8}$/;
 let passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 let emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+const [isSuccess , setIsSuccess] = useState(false)
 
 const validateSchema = Yup.object({
   email: Yup.string().matches(emailRegex ,'Invalid email address').required('Email is required'),
@@ -35,6 +36,9 @@ async function handleRegister(values){
   const { data: authData, error: authError } = await supabase.auth.signUp({
       email: values.email,
       password: values.password,
+      options: {
+      emailRedirectTo: 'https://complaint-an4x.vercel.app/MyComplaints',
+    },
     });
     if(authError){
       setErrorMsg(authError.message)
@@ -57,6 +61,7 @@ async function handleRegister(values){
     }
     setIsloading(false)
 }
+setIsSuccess(true)
   return<>
 <div className="container d-flex align-items-center justify-content-center mb-3 mt-3">
       <div className="row justify-content-center w-100">
@@ -64,6 +69,11 @@ async function handleRegister(values){
           <div className="card shadow-sm border-0 rounded-3 px-3 bg-light">
             <h2 className="text-center mb-4 mt-3 fw-bold text-dark">Create Account</h2>
             {errorMsg && (<div className='alert alert-danger py-2'>{errorMsg}</div>)}
+            {isSuccess && (
+              <div className="alert alert-success py-2 text-center">
+                Your Email has been created successfly, pleas check your mialbox to confirm email
+              </div>
+            )}
             <form onSubmit={formik.handleSubmit}>
               <div className="mb-3">
                 <label className="form-label">
