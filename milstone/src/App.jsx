@@ -14,9 +14,6 @@ import {QueryClient , QueryClientProvider} from '@tanstack/react-query'
 import Complaintdetailes from './components/Complaintdetailes/Complaintdetailes';
 import ProtectedRoute from './components/protetedRoute/protetedRoute';
 
-
-
-
 let routers = createBrowserRouter([
   {path:'/' ,element: <Layout/> ,children:[
     {path:'/' , element: <Login/>},
@@ -37,5 +34,4 @@ function App() {
         </QueryClientProvider>
   </>
 }
-
 export default App;

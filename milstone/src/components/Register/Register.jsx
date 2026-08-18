@@ -5,10 +5,7 @@ import { supabase } from '../../../utils/supabase'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
 
-
-
 export default function Register() {
-
 let phoneRegex = /^01[0125][0-9]{8}$/;
 let passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 let emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
@@ -19,7 +16,6 @@ const validateSchema = Yup.object({
   phone: Yup.string().matches(phoneRegex , 'Must be a valid phone number').required('Phone Number is Required'),
   password: Yup.string().matches(passRegex , 'password must contain at least one upercase letter and one number and one special character like "$ # @ !"  ')
 })
-
 const formik = useFormik({
   initialValues:{
     email:'',
@@ -30,11 +26,9 @@ const formik = useFormik({
   validationSchema:validateSchema,
   onSubmit:handleRegister
 })
-
 const [isLoading , setIsloading] = useState(false)
 const [errorMsg , setErrorMsg] = useState('')
 const navigate = useNavigate()
-
 async function handleRegister(values){
   setIsloading(true)
   setErrorMsg('')

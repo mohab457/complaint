@@ -22,7 +22,6 @@ export default function Complaint() {
   const [date , setdate] =useState(getCurrentDate())
   const [complaintText, setComplaintText] = useState("");
   const [isloading, setIsLoading] = useState(false);
-    
   function clearform(){
     setUserName('')
     setEmail('')

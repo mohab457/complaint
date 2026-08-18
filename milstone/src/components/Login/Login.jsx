@@ -7,8 +7,10 @@ import { supabase } from '../../../utils/supabase';
 import * as Yup from 'yup'
 import { useFormik } from 'formik';
 
-
 export default function Login() {
+const navigate = useNavigate();
+const [isLoading, setIsLoading] = useState(false);
+const [errorMsg, setErrorMsg] = useState('');
   useEffect(() => {
     async function checkSession() {
       const { data: { session } } = await supabase.auth.getSession();
@@ -20,18 +22,14 @@ export default function Login() {
     }
     checkSession();
   }, [navigate]);
-
 let passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 let emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-const [isLoading, setIsLoading] = useState(false);
-const [errorMsg, setErrorMsg] = useState('');
-const navigate = useNavigate();
+
 
 const validateSchema = Yup.object({
   email: Yup.string().matches(emailRegex ,'Invalid email address').required('Email is required'),
   password: Yup.string().matches(passRegex , 'password must contain at least one upercase letter and one number and one special character like "$ # @ !"  ')
 })
-
 const formik = useFormik({
   initialValues:{
     email:'',
@@ -40,8 +38,6 @@ const formik = useFormik({
   validationSchema:validateSchema,
   onSubmit:handleLogin
 })
-
-
 async function handleLogin(values){
   setIsLoading(true)
   setErrorMsg('')
@@ -59,7 +55,6 @@ async function handleLogin(values){
   }
   setIsLoading(false);
 }
-
 return<>
 <div className="container vh-100 d-flex  justify-content-center mt-5 mb-3">
       <div className="row justify-content-center w-100">
