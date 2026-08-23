@@ -28,7 +28,7 @@ useEffect(() => {
   }
 
   return<>
-<nav className="navbar navbar-expand-lg bg-dark navbar-dark  border-bottom">
+<nav className="navbar navbar-expand-lg bg-black navbar-dark  border-bottom">
   <div className="container-fluid">
     <Link to={'/'} className="navbar-brand btn" href="#">Complaint System </Link>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,9 +38,21 @@ useEffect(() => {
       <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
         {user ? (
           <>
+          <div className="dropdown">
+            <button className="btn text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Options
+            </button>
+            <ul className="dropdown-menu">
+            <li className='dropdwon-item nav-item'>
+              <Link to={'/settings'} className='text-decoration-none text-black p-2'>settings</Link>
+            </li>
             <li className="nav-item">
               <button onClick={handleLogout} className="nav-link btn active text-danger">Logout</button>
             </li>
+
+            </ul>
+          </div>
+
           </>
         ) : (
           <>

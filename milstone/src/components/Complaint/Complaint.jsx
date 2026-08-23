@@ -3,8 +3,29 @@ import Style from "./Complaint.module.css";
 import { supabase } from "../../../utils/supabase";
 import { ThreeDots } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import * as Yup from 'yup'
+import { useFormik } from "formik";
 
 export default function Complaint() {
+    const [userName, setUserName] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [topic, setTopic] = useState("");
+    const [date , setdate] =useState(getCurrentDate())
+    const [complaintText, setComplaintText] = useState("");
+    const [isloading, setIsLoading] = useState(false);
+    
+    let phoneRegx = /^01[0125][0-9]{8}$/;
+    const validateSchema = Yup.object({
+      phone: Yup.string().matches(phoneRegx , 'Must be a valid phone number').required('phone number is required')
+    })
+    const formik = useFormik({
+      initialValues: {
+        phone: ''
+      },
+      validationSchema: validateSchema
+    })
+
     function getCurrentDate(){
     const now = new Date()
     return now.toLocaleString('en-US' ,{
@@ -15,13 +36,6 @@ export default function Complaint() {
       hour12: true
     })
     }
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [topic, setTopic] = useState("");
-  const [date , setdate] =useState(getCurrentDate())
-  const [complaintText, setComplaintText] = useState("");
-  const [isloading, setIsLoading] = useState(false);
   function clearform(){
     setUserName('')
     setEmail('')
@@ -29,7 +43,8 @@ export default function Complaint() {
     setTopic('')
     setComplaintText('')
   }
-  async function sendComplaint() {
+  async function sendComplaint(e) {
+    e.preventDefault();
     setIsLoading(true);
     const { data, error } = await supabase.from("complaint")
     .insert([
@@ -42,8 +57,13 @@ export default function Complaint() {
         date: date
       },
     ]);
+    if (error) {
+      console.error("Error inserting complaint:", error);
+      alert("An error occurred: " + error.message);
+    } else {
+      clearform();
+    }
     setIsLoading(false);
-    clearform()
   }
   return (
     <>
@@ -55,7 +75,7 @@ export default function Complaint() {
 
         <form onSubmit={sendComplaint}>
           <div className="row g-3">
-            <div className="col-12 col-md-4">
+{/*             <div className="col-12 col-md-4">
               <label className="form-label fw-semibold">Username</label>
               <div className="input-group">
                 <span className="input-group-text">@</span>
@@ -68,9 +88,9 @@ export default function Complaint() {
                   required
                 />
               </div>
-            </div>
+            </div> */}
 
-            <div className="col-12 col-md-4">
+{/*             <div className="col-12 col-md-4">
               <label className="form-label fw-semibold">Email</label>
               <div className="input-group">
                 <span className="input-group-text">@</span>
@@ -83,9 +103,9 @@ export default function Complaint() {
                   required
                 />
               </div>
-            </div>
+            </div> */}
 
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-3 mb-3">
               <label className="form-label fw-semibold">Phone</label>
               <div className="input-group">
                 <span className="input-group-text">+20</span>
@@ -93,15 +113,20 @@ export default function Complaint() {
                   type="tel"
                   className="form-control"
                   placeholder="01xxxxxxxxx"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
+                  value={formik.values.phone}
+                  onChange={formik.handleChange}
+                  name="phone"
+                  onBlur={formik.handleBlur}
+
                 />
+                {formik.touched.phone && formik.errors.phone && (
+                  <div className=" text-danger py-1 mt-1">{formik.errors.phone}</div>
+                )}
               </div>
             </div>
 
-            <div className="col-12">
-              <label className="form-label fw-semibold">Topic</label>
+            <div className="col-12 mb-3">
+              <label className="form-label fw-semibold">What does your complain about?</label>
               <div className="input-group">
                 <label className="input-group-text">Topic:</label>
                 <select

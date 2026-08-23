@@ -160,7 +160,7 @@ async function handleRegister(values){
                   <div className="alert alert-danger py-1 mt-1">{formik.errors.password}</div>
                 )}
               </div>
-              <button type="submit" disabled={isLoading || !formik.isValid || !formik.dirty} className="btn btn-primary w-100 py-2">
+              <button type="submit" className="btn bg-black text-white w-100 py-2">
                 {isLoading? "Creating Account...": 'Register'}
               </button>
               <div className='w-100 text-center mt-2 mb-3'>

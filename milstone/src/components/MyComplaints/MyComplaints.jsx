@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import { useQuery } from "@tanstack/react-query";
 
+
 export default function MyComplaints() {
   const [complaints, setComplaint] = useState([]);
   const [isLoading, setIsloading] = useState(true);
@@ -28,8 +29,8 @@ export default function MyComplaints() {
   });
   return (
     <>
-<div className="container my-4">
-      <div className="bg-dark border rounded-4 p-3 p-md-4 shadow">
+<div className="container my-4 text-black">
+      <div className="bg-white border rounded-4 p-3 p-md-4 shadow">
         
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center gap-3 mb-4">
           <Link to={'/complaint'} className="btn btn-primary text-nowrap">
@@ -50,7 +51,7 @@ export default function MyComplaints() {
         </div>
 
         <div className="table-responsive rounded-3">
-          <table className="table table-striped table-dark text-center align-middle mb-0">
+          <table className="table table-striped table-light text-center text-black align-middle mb-0">
             <thead>
               <tr>
                 <th>ID</th>
@@ -65,32 +66,32 @@ export default function MyComplaints() {
               {data?.map((item) => (
                 <tr key={item.id}>
                   <th>
-                    <Link to="/Complaintdetailes" className="text-light text-decoration-none d-block p-1">
+                    <Link to="/Complaintdetailes" className="text-black text-decoration-none d-block p-1">
                       {item.id}
                     </Link>
                   </th>
                   <td>
-                    <Link to="/Complaintdetailes" className="text-light text-decoration-none d-block p-1">
+                    <Link to="/Complaintdetailes" className="text-black text-decoration-none d-block p-1">
                       {item.userName}
                     </Link>
                   </td>
                   <td>
-                    <Link to="/Complaintdetailes" className="text-light text-decoration-none d-block p-1">
+                    <Link to="/Complaintdetailes" className="text-black text-decoration-none d-block p-1">
                       {item.topic}
                     </Link>
                   </td>
                   <td>
-                    <Link to="/Complaintdetailes" className="badge bg-warning text-dark text-decoration-none p-2">
+                    <Link to="/Complaintdetailes" className=" badge bg-warning text-dark text-decoration-none p-2">
                       {item.statu || 'Pending..'}
                     </Link>
                   </td>
                   <td>
-                    <Link to="/Complaintdetailes" className="text-light text-decoration-none d-block p-1">
+                    <Link to="/Complaintdetailes" className="text-black text-decoration-none d-block p-1">
                       {item.phone}
                     </Link>
                   </td>
                   <td>
-                    <Link to="/Complaintdetailes" className="text-light text-decoration-none d-block p-1">
+                    <Link to="/Complaintdetailes" className="text-black text-decoration-none d-block p-1">
                       {item.date}
                     </Link>
                   </td>

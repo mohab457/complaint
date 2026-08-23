@@ -5,6 +5,6 @@ import Style from './Footer.module.css'
 
 export default function Footer() {
   return<>
-    <h5 className='w-100 bg-dark border-top text-white text-center  m-0 p-3 '>Footer</h5>
+    <h5 className='w-100 bg-black text-white border-top text-center  m-0 p-3 '>Footer</h5>
   </>
 }
