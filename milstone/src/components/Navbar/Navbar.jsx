@@ -39,7 +39,7 @@ useEffect(() => {
         {user ? (
           <>
           <div className="dropdown">
-            <button className="btn text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button className="btn text-white " type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Options
             </button>
             <ul className="dropdown-menu">

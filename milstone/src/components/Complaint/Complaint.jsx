@@ -163,13 +163,13 @@ export default function Complaint() {
                   <button
                     disabled={isloading}
                     type="submit"
-                    className="btn btn-primary w-100 py-2"
+                    className="btn btn-outline-primary w-100 py-2"
                   >
                     {isloading ? 'Loading...' : 'Submit'}
                   </button>
                 </div>
                 <div className="col-12 col-md-6">
-                  <Link to={'/MyComplaints'} className="btn btn-success w-100 py-2">
+                  <Link to={'/MyComplaints'} className="btn btn-outline-success w-100 py-2">
                     Reports
                   </Link>
                 </div>

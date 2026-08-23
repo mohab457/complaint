@@ -29,11 +29,11 @@ export default function MyComplaints() {
   });
   return (
     <>
-<div className="container my-4 text-black">
+<div className="container vh-100 my-4 text-black">
       <div className="bg-white border rounded-4 p-3 p-md-4 shadow">
         
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center gap-3 mb-4">
-          <Link to={'/complaint'} className="btn btn-primary text-nowrap">
+          <Link to={'/complaint'} className="btn btn-outline-primary  text-nowrap">
             <i className="fa-solid fa-plus me-1"></i> + New Complaint
           </Link>
 
