@@ -35,8 +35,9 @@ export default function Complaintdetailes() {
             {currentComplaint.complaintText}
           </p>
         </div>
-        <div>
-          <span className="px-2 py-1 rounded-3 bg-warning text-dark"> Under Review</span>
+        <div className='d-flex justify-content-between'>
+          <span className=" text-center px-3 py-2 text-muted  rounded-3 bg-warning text-dark"> Under Review</span>
+          <button className='btn btn-outline-success'>Save</button>
         </div>
       </div>
     </div>
