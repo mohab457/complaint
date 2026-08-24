@@ -53,7 +53,7 @@ export default function MyComplaints() {
                    <strong className="text-white px-5 py-2 mb-3 text-center rounded-3 bg-black fs-6">{item.topic}</strong>
                   <small className="text-muted">{item.complaintsList}</small>
                 </div>
-                  <p className="text-muted">Date Sent:  {item.date}</p>
+                  <p>Date Sent: <span className="text-muted">{item.date}</span> </p>
                 <p className="mb-0 fs-5"><strong>Complaint detailes: </strong> </p>
                 <p>{item.complaintText}</p>
               </div>
