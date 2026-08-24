@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import Style from "./Complaint.module.css";
 import { supabase } from "../../../utils/supabase";
 import { ThreeDots } from "react-loader-spinner";
@@ -43,13 +43,16 @@ export default function Complaint() {
     setTopic('')
     setComplaintText('')
   }
+
   async function sendComplaint(e) {
     e.preventDefault();
+    const { data: { user } } = await supabase.auth.getUser();
     setIsLoading(true);
     const { data, error } = await supabase.from("complaint")
     .insert([
       {
-        userName: userName,
+        userName: userName || user.user_metadata?.userName || "User",
+        user_id: user.id,
         phone: phone,
         email: email,
         topic: topic,
@@ -65,16 +68,28 @@ export default function Complaint() {
     }
     setIsLoading(false);
   }
+  useEffect(()=>{
+  async function fetchUserdata(){
+        const {data: {user} } = await supabase.auth.getUser()
+        if(user){
+      const name = user.user_metadata?.userName || user.email || user.name;
+      setUserName(name);
+      setEmail(user.email);
+        }
+    }
+    fetchUserdata()
+  },[])
+
   return (
     <>
-<div className="container mt-4 mb-5">
+<div className="container vh-100 mt-4 mb-5">
       <div className="card bg-light p-4 p-md-5 rounded-4 shadow-sm">
         <h2 className="text-center mb-4 fw-bold text-dark">
           - Complete This Form To Write Your Complaint -
         </h2>
-
         <form onSubmit={sendComplaint}>
           <div className="row g-3">
+            <p>{userName}</p>
 {/*             <div className="col-12 col-md-4">
               <label className="form-label fw-semibold">Username</label>
               <div className="input-group">
@@ -105,7 +120,7 @@ export default function Complaint() {
               </div>
             </div> */}
 
-            <div className="col-12 col-md-3 mb-3">
+            {/* <div className="col-12 col-md-3 mb-3">
               <label className="form-label fw-semibold">Phone</label>
               <div className="input-group">
                 <span className="input-group-text">+20</span>
@@ -117,13 +132,12 @@ export default function Complaint() {
                   onChange={formik.handleChange}
                   name="phone"
                   onBlur={formik.handleBlur}
-
                 />
                 {formik.touched.phone && formik.errors.phone && (
                   <div className=" text-danger py-1 mt-1">{formik.errors.phone}</div>
                 )}
               </div>
-            </div>
+            </div> */}
 
             <div className="col-12 mb-3">
               <label className="form-label fw-semibold">What does your complain about?</label>
@@ -134,6 +148,7 @@ export default function Complaint() {
                   value={topic}
                   onChange={(e) => setTopic(e.target.value)}
                 >
+                  <option value=""></option>
                   <option value="Wrong Item">Wrong Item</option>
                   <option value="Lost Item">Lost Item</option>
                   <option value="Broken Item">Broken Item</option>

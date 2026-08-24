@@ -56,6 +56,9 @@ async function handleRegister(values){
       password: values.password,
       options: {
       emailRedirectTo: 'https://complaint-an4x.vercel.app/MyComplaints',
+      data:{
+        userName: values.userName,
+      }
     },
     });
     if(authError){
@@ -81,7 +84,7 @@ async function handleRegister(values){
     setIsloading(false)
 }
   return<>
-<div className="container d-flex align-items-center justify-content-center mb-3 mt-3">
+<div className="container d-flex vh-100 justify-content-center mb-3 mt-5">
       <div className="row justify-content-center w-100">
         <div className="col-12 col-md-6 col-lg-4">
           <div className="card shadow-sm border-0 rounded-3 px-3 bg-light">

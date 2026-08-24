@@ -66,32 +66,32 @@ export default function MyComplaints() {
               {data?.map((item) => (
                 <tr key={item.id}>
                   <th>
-                    <Link to="/Complaintdetailes" className="text-black text-decoration-none d-block p-1">
+                    <Link to="/Complaintdetailes" className="text-black w-100 text-decoration-none d-block p-1">
                       {item.id}
                     </Link>
                   </th>
                   <td>
-                    <Link to="/Complaintdetailes" className="text-black text-decoration-none d-block p-1">
+                    <Link to="/Complaintdetailes" className="text-black w-100 text-decoration-none d-block p-1">
                       {item.userName}
                     </Link>
                   </td>
                   <td>
-                    <Link to="/Complaintdetailes" className="text-black text-decoration-none d-block p-1">
+                    <Link to="/Complaintdetailes" className="text-black w-100 text-decoration-none d-block p-1">
                       {item.topic}
                     </Link>
                   </td>
                   <td>
-                    <Link to="/Complaintdetailes" className=" badge bg-warning text-dark text-decoration-none p-2">
+                    <Link to="/Complaintdetailes" className=" badge bg-warning w-100 text-dark text-decoration-none p-2">
                       {item.statu || 'Pending..'}
                     </Link>
                   </td>
                   <td>
-                    <Link to="/Complaintdetailes" className="text-black text-decoration-none d-block p-1">
+                    <Link to="/Complaintdetailes" className="text-black w-100 text-decoration-none d-block p-1">
                       {item.phone}
                     </Link>
                   </td>
                   <td>
-                    <Link to="/Complaintdetailes" className="text-black text-decoration-none d-block p-1">
+                    <Link to="/Complaintdetailes" className="text-black w-100 text-decoration-none d-block p-1">
                       {item.date}
                     </Link>
                   </td>
