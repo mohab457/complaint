@@ -14,6 +14,9 @@ import {QueryClient , QueryClientProvider} from '@tanstack/react-query'
 import Complaintdetailes from './components/Complaintdetailes/Complaintdetailes';
 import ProtectedRoute from './components/protetedRoute/protetedRoute';
 import Settings from './components/Settings/Settings';
+import {AuthProvider} from './context/AuthContext'
+
+
 
 let routers = createBrowserRouter([
   {path:'/' ,element: <Layout/> ,children:[
@@ -30,10 +33,12 @@ let routers = createBrowserRouter([
 ])
 let queryClient = new QueryClient()
 function App() {
-  return<>
+  return <AuthProvider>        
         <QueryClientProvider client={queryClient}>
-        <RouterProvider router={routers}></RouterProvider>
+          <RouterProvider router={routers}></RouterProvider>
         </QueryClientProvider>
-  </>
+      </AuthProvider>
+
+
 }
 export default App;

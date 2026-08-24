@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Style from './Navbar.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../../../utils/supabase';
+import { useAuth } from '../../context/AuthContext';
 
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const {userName} = useAuth()
 
 useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -49,10 +51,9 @@ useEffect(() => {
             <li className="nav-item">
               <button onClick={handleLogout} className="nav-link btn active text-danger">Logout</button>
             </li>
-
             </ul>
           </div>
-
+          
           </>
         ) : (
           <>

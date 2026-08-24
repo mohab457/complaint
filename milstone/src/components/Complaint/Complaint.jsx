@@ -5,15 +5,13 @@ import { ThreeDots } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import * as Yup from 'yup'
 import { useFormik } from "formik";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Complaint() {
-    const [userName, setUserName] = useState("");
-    const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
     const [topic, setTopic] = useState("");
     const [date , setdate] =useState(getCurrentDate())
     const [complaintText, setComplaintText] = useState("");
-    const [isloading, setIsLoading] = useState(false);
+    const {user , userName , phone , email , isloading} = useAuth()
     
     let phoneRegx = /^01[0125][0-9]{8}$/;
     const validateSchema = Yup.object({
@@ -69,32 +67,6 @@ export default function Complaint() {
     setIsLoading(false);
   }
 
-  useEffect(() => {
-  async function fetchUserData() {
-    // 1. جلب المستخدم الحالي
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      // 2. جلب الاسم والتليفون بدون .single() لتجنب خطأ 406
-      const { data, error } = await supabase
-        .from('register')
-        .select('userName, phone')
-        .eq('id', user.id);
-    console.log("Register Query Result:", { data, error, currentUserId: user.id });
-
-      if (data && data.length > 0 && !error) {
-        setUserName(data[0].userName);
-        setPhone(data[0].phone);
-      } else {
-        // Fallback من الـ Metadata
-        setUserName(user.user_metadata?.userName || user.email);
-        setPhone(user.user_metadata?.phone || "No phone found");
-      }
-    }
-  }
-  
-  fetchUserData();
-}, []);
-
   return (
     <>
 <div className="container vh-100 mt-4 mb-5">
@@ -104,56 +76,6 @@ export default function Complaint() {
         </h2>
         <form onSubmit={sendComplaint}>
           <div className="row g-3">
-            <div> <h5>User Name: </h5> {userName}</div>
-            <div> <h5>Phone Number: </h5> {phone}</div>
-{/*             <div className="col-12 col-md-4">
-              <label className="form-label fw-semibold">Username</label>
-              <div className="input-group">
-                <span className="input-group-text">@</span>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Username"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  required
-                />
-              </div>
-            </div> */}
-
-{/*             <div className="col-12 col-md-4">
-              <label className="form-label fw-semibold">Email</label>
-              <div className="input-group">
-                <span className="input-group-text">@</span>
-                <input
-                  type="email"
-                  className="form-control"
-                  placeholder="name@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-            </div> */}
-
-            {/* <div className="col-12 col-md-3 mb-3">
-              <label className="form-label fw-semibold">Phone</label>
-              <div className="input-group">
-                <span className="input-group-text">+20</span>
-                <input
-                  type="tel"
-                  className="form-control"
-                  placeholder="01xxxxxxxxx"
-                  value={formik.values.phone}
-                  onChange={formik.handleChange}
-                  name="phone"
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.phone && formik.errors.phone && (
-                  <div className=" text-danger py-1 mt-1">{formik.errors.phone}</div>
-                )}
-              </div>
-            </div> */}
 
             <div className="col-12 mb-3">
               <label className="form-label fw-semibold">What does your complain about?</label>
