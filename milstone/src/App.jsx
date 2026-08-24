@@ -26,7 +26,7 @@ let routers = createBrowserRouter([
     {path:'Complaint' , element:<ProtectedRoute><Complaint/></ProtectedRoute> },
     {path:'settings' , element:<ProtectedRoute><Settings/></ProtectedRoute> },
     {path:'home' , element:<ProtectedRoute><Home/></ProtectedRoute> },
-    {path:'Complaintdetailes' , element:<ProtectedRoute><Complaintdetailes/></ProtectedRoute>},
+    {path:'Complaintdetailes/:id' , element:<ProtectedRoute><Complaintdetailes/></ProtectedRoute>},
     {path:'MyComplaints' , element:<ProtectedRoute><MyComplaints/></ProtectedRoute>},
     {path:'*' , element: <NotFound/>}
   ]}

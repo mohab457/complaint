@@ -7,6 +7,7 @@ import { ThreeDots } from "react-loader-spinner";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../../context/AuthContext";
 
+
 export default function MyComplaints() {
   const [complaints, setComplaint] = useState([]);
   const [isLoading, setIsloading] = useState(true);
@@ -37,7 +38,7 @@ export default function MyComplaints() {
         
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center gap-3 mb-4">
           <p className="fs-1"><strong>Comlaints Detailes</strong> </p>
-          <Link to={'/complaint'} className="btn border">New Complaint</Link>
+          <Link to={'/complaint'} className="btn border bg-black text-white">New Complaint</Link>
         </div>
         <div className="mb-3 text-muted">
           <p className="mb-1"><strong>User Name:</strong> {userName}</p>
@@ -46,21 +47,27 @@ export default function MyComplaints() {
         </div>
 
 
-        {complaintsList && complaintsList.length > 0 && (
-          <Link className="d-flex flex-column text-decoration-none gap-3">
-            {complaintsList.map((item) => (
-              <div key={item.id} className="card border p-3 rounded-3 shadow-sm bg-light">
-                <div className="d-flex justify-content-between mx-auto align-items-center mb-2">
-                   <strong className="text-white px-5 py-2 mb-3 text-center rounded-3 bg-black fs-6">{item.topic}</strong>
-                  <small className="text-muted">{item.complaintsList}</small>
-                </div>
-                  <p>Date Sent: <span className="text-muted">{item.date}</span> </p>
-                <p className="mb-0 fs-5"><strong>Complaint detailes: </strong> </p>
-                <p>{item.complaintText}</p>
-              </div>
-            ))}
-          </Link>
-        )}
+                {complaintsList && complaintsList.length > 0 && (
+                  <div className="d-flex flex-column gap-3">
+                    {complaintsList.map((item) => (
+                      <Link 
+                        key={item.id} 
+                        to={`/Complaintdetailes/${item.id}`} 
+                        className="text-decoration-none text-dark"
+                      >
+                        <div className="card border p-3 rounded-3 shadow-sm bg-light">
+                          <div className="d-flex justify-content-between align-items-center mb-2">
+                            <strong className="badge bg-black text-white px-4 py-2 fs-6">{item.topic}</strong>
+                            <small className="text-muted">{item.date}</small>
+                          </div>
+                          <p className="mb-0 fw-bold">Complaint details:</p>
+                          <p className="text-secondary mb-0">{item.complaintText}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
 
 
         {complaintsList && complaintsList.length === 0 && (

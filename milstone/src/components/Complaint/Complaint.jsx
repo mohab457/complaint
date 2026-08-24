@@ -130,7 +130,7 @@ export default function Complaint() {
                 </div>
                 <div className="col-12 col-md-6">
                   <Link to={'/MyComplaints'} className="btn btn-outline-success w-100 py-2">
-                    Reports
+                    My complaints
                   </Link>
                 </div>
               </div>

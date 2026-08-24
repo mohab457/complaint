@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { supabase } from '../../utils/supabase'; 
+import { supabase } from '../../utils/supabase';
 
 const AuthContext = createContext();
 
@@ -7,8 +7,9 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [userName, setUserName] = useState('');
   const [phone, setPhone] = useState('');
-  const [email , setEmail] = useState('')
+  const [email, setEmail] = useState('');
   const [isloading, setIsLoading] = useState(true);
+  const [complaints, setComplaints] = useState([]); 
 
   async function fetchUserData() {
     try {
@@ -17,6 +18,7 @@ export function AuthProvider({ children }) {
       if (user) {
         setUser(user);
         setEmail(user.email || '');
+
         const { data, error } = await supabase
           .from('register')
           .select('userName, phone')
@@ -29,11 +31,22 @@ export function AuthProvider({ children }) {
           setUserName(user.user_metadata?.userName || user.email);
           setPhone(user.user_metadata?.phone || 'No phone found');
         }
+
+        const { data: complaintsData, error: complaintsError } = await supabase
+          .from('complaint')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('id', { ascending: false });
+
+        if (complaintsData && !complaintsError) {
+          setComplaints(complaintsData); 
+        }
       } else {
         setUser(null);
         setUserName('');
         setPhone('');
         setEmail('');
+        setComplaints([]);
       }
     } catch (err) {
       console.error('Error fetching user context:', err);
@@ -54,6 +67,7 @@ export function AuthProvider({ children }) {
         setPhone('');
         setEmail('');
         setIsLoading(false);
+        setComplaints([]);
       }
     });
 
@@ -63,7 +77,18 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, userName, phone, email, isloading, refreshUserData: fetchUserData }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        userName,
+        complaints,
+        setComplaints,
+        phone,
+        email,
+        isloading,
+        refreshUserData: fetchUserData,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
