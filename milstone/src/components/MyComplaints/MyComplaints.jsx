@@ -37,6 +37,7 @@ export default function MyComplaints() {
         
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center gap-3 mb-4">
           <p className="fs-1"><strong>Comlaints Detailes</strong> </p>
+          <Link to={'/complaint'} className="btn border">New Complaint</Link>
         </div>
         <div className="mb-3 text-muted">
           <p className="mb-1"><strong>User Name:</strong> {userName}</p>
