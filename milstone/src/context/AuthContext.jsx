@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
 
       if (user) {
         setUser(user);
-
+        setEmail(user.email || '');
         const { data, error } = await supabase
           .from('register')
           .select('userName, phone')
@@ -33,6 +33,7 @@ export function AuthProvider({ children }) {
         setUser(null);
         setUserName('');
         setPhone('');
+        setEmail('');
       }
     } catch (err) {
       console.error('Error fetching user context:', err);
@@ -51,6 +52,7 @@ export function AuthProvider({ children }) {
         setUser(null);
         setUserName('');
         setPhone('');
+        setEmail('');
         setIsLoading(false);
       }
     });
@@ -61,7 +63,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, userName, phone, isloading, refreshUserData: fetchUserData }}>
+    <AuthContext.Provider value={{ user, userName, phone, email, isloading, refreshUserData: fetchUserData }}>
       {children}
     </AuthContext.Provider>
   );

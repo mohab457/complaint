@@ -5,11 +5,12 @@ import { supabase } from "../../../utils/supabase";
 import { Link } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import { useQuery } from "@tanstack/react-query";
-
+import { useAuth } from "../../context/AuthContext";
 
 export default function MyComplaints() {
   const [complaints, setComplaint] = useState([]);
   const [isLoading, setIsloading] = useState(true);
+  const {userName , phone , email} = useAuth()
 
   async function getComplaints() {
     setIsloading(true);
@@ -49,7 +50,11 @@ export default function MyComplaints() {
             </button>
           </form>
         </div>
-
+        <div className="mb-3 text-muted">
+          <p className="mb-1"><strong>User Name:</strong> {userName}</p>
+          <p className="mb-1"><strong>E-mail:</strong> {email}</p>
+          <p className="mb-1"><strong>Phone:</strong> {phone || 'Not available'}</p>
+        </div>
         <div className="table-responsive rounded-3">
           <table className="table table-striped table-light text-center text-black align-middle mb-0">
             <thead>
