@@ -68,17 +68,32 @@ export default function Complaint() {
     }
     setIsLoading(false);
   }
-  useEffect(()=>{
-  async function fetchUserdata(){
-        const {data: {user} } = await supabase.auth.getUser()
-        if(user){
-      const name = user.user_metadata?.userName || user.email || user.name;
-      setUserName(name);
-      setEmail(user.email);
-        }
+
+  useEffect(() => {
+  async function fetchUserData() {
+    // 1. جلب المستخدم الحالي
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      // 2. جلب الاسم والتليفون بدون .single() لتجنب خطأ 406
+      const { data, error } = await supabase
+        .from('register')
+        .select('userName, phone')
+        .eq('id', user.id);
+    console.log("Register Query Result:", { data, error, currentUserId: user.id });
+
+      if (data && data.length > 0 && !error) {
+        setUserName(data[0].userName);
+        setPhone(data[0].phone);
+      } else {
+        // Fallback من الـ Metadata
+        setUserName(user.user_metadata?.userName || user.email);
+        setPhone(user.user_metadata?.phone || "No phone found");
+      }
     }
-    fetchUserdata()
-  },[])
+  }
+  
+  fetchUserData();
+}, []);
 
   return (
     <>
@@ -89,7 +104,8 @@ export default function Complaint() {
         </h2>
         <form onSubmit={sendComplaint}>
           <div className="row g-3">
-            <p>{userName}</p>
+            <div> <h5>User Name: </h5> {userName}</div>
+            <div> <h5>Phone Number: </h5> {phone}</div>
 {/*             <div className="col-12 col-md-4">
               <label className="form-label fw-semibold">Username</label>
               <div className="input-group">

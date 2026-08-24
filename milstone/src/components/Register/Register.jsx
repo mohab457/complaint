@@ -58,6 +58,7 @@ async function handleRegister(values){
       emailRedirectTo: 'https://complaint-an4x.vercel.app/MyComplaints',
       data:{
         userName: values.userName,
+        phone: values.phone
       }
     },
     });
