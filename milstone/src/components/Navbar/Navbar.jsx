@@ -45,9 +45,6 @@ useEffect(() => {
               Options
             </button>
             <ul className="dropdown-menu">
-            <li className='dropdwon-item nav-item'>
-              <Link to={'/settings'} className='text-decoration-none text-black p-2'>settings</Link>
-            </li>
             <li className="nav-item">
               <button onClick={handleLogout} className="nav-link btn active text-danger">Logout</button>
             </li>

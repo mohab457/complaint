@@ -10,13 +10,14 @@ import { useAuth } from "../../context/AuthContext";
 export default function MyComplaints() {
   const [complaints, setComplaint] = useState([]);
   const [isLoading, setIsloading] = useState(true);
-  const {userName , phone , email} = useAuth()
+  const {userName , phone , email , user} = useAuth()
 
   async function getComplaints() {
     setIsloading(true);
     const { data, error } = await supabase
     .from("complaint")
     .select("*")
+    .eq('user_id', user?.id)
     .order("id" , {ascending: false})
     if (data) {
       setComplaint(data);
@@ -24,89 +25,44 @@ export default function MyComplaints() {
     setIsloading(false);
     return data;
     }
-  let { data } = useQuery({
+  let { data: complaintsList } = useQuery({
     queryKey: ["complaints"],
     queryFn: getComplaints,
+    enabled: !!user,
   });
   return (
     <>
-<div className="container vh-100 my-4 text-black">
+<div className="container my-4 text-black">
       <div className="bg-white border rounded-4 p-3 p-md-4 shadow">
         
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center gap-3 mb-4">
-          <Link to={'/complaint'} className="btn btn-outline-primary  text-nowrap">
-            <i className="fa-solid fa-plus me-1"></i> + New Complaint
-          </Link>
-
-          <form className="d-flex w-100 w-md-auto" role="search" onSubmit={(e) => e.preventDefault()}>
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search by phone"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success text-nowrap" type="submit">
-              Search
-            </button>
-          </form>
+          <p className="fs-1"><strong>Comlaints Detailes</strong> </p>
         </div>
         <div className="mb-3 text-muted">
           <p className="mb-1"><strong>User Name:</strong> {userName}</p>
           <p className="mb-1"><strong>E-mail:</strong> {email}</p>
           <p className="mb-1"><strong>Phone:</strong> {phone || 'Not available'}</p>
         </div>
-        <div className="table-responsive rounded-3">
-          <table className="table table-striped table-light text-center text-black align-middle mb-0">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>User Name</th>
-                <th>Topic</th>
-                <th>Status</th>
-                <th>Phone</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody className="table-group-divider">
-              {data?.map((item) => (
-                <tr key={item.id}>
-                  <th>
-                    <Link to="/Complaintdetailes" className="text-black w-100 text-decoration-none d-block p-1">
-                      {item.id}
-                    </Link>
-                  </th>
-                  <td>
-                    <Link to="/Complaintdetailes" className="text-black w-100 text-decoration-none d-block p-1">
-                      {item.userName}
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to="/Complaintdetailes" className="text-black w-100 text-decoration-none d-block p-1">
-                      {item.topic}
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to="/Complaintdetailes" className=" badge bg-warning w-100 text-dark text-decoration-none p-2">
-                      {item.statu || 'Pending..'}
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to="/Complaintdetailes" className="text-black w-100 text-decoration-none d-block p-1">
-                      {item.phone}
-                    </Link>
-                  </td>
-                  <td>
-                    <Link to="/Complaintdetailes" className="text-black w-100 text-decoration-none d-block p-1">
-                      {item.date}
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
 
-        {data && data.length === 0 && (
+
+        {complaintsList && complaintsList.length > 0 && (
+          <Link className="d-flex flex-column text-decoration-none gap-3">
+            {complaintsList.map((item) => (
+              <div key={item.id} className="card border p-3 rounded-3 shadow-sm bg-light">
+                <div className="d-flex justify-content-between mx-auto align-items-center mb-2">
+                   <strong className="text-white px-5 py-2 mb-3 text-center rounded-3 bg-black fs-6">{item.topic}</strong>
+                  <small className="text-muted">{item.complaintsList}</small>
+                </div>
+                  <p className="text-muted">Date Sent:  {item.date}</p>
+                <p className="mb-0 fs-5"><strong>Complaint detailes: </strong> </p>
+                <p>{item.complaintText}</p>
+              </div>
+            ))}
+          </Link>
+        )}
+
+
+        {complaintsList && complaintsList.length === 0 && (
           <div className="w-100 bg-light text-dark text-center py-4 mt-3 rounded-3">
             <p className="fs-5 mb-0">No Complaints have been Created</p>
           </div>
